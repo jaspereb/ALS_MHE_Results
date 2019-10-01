@@ -209,31 +209,34 @@ for plotn = 1:2:12
 end
 % tilefigs;
 
-%Plot the frequency spectrum for the first two observations
-for n = 1:10
-    innovs_Orig = cell2mat(Y_Original_EKF);
-    innovs_EKF_ALS_EKF = cell2mat(Y_EKF_ALS_EKF);
-    innovs_MHE_ALS_EKF = cell2mat(Y_MHE_ALS_EKF);
-    
-    figure();
-    hold on;
-    Finnov1 = abs(fft(innovs_Orig(n,:)));
-    Finnov2 = abs(fft(innovs_EKF_ALS_EKF(n,:)));
-    Finnov3 = abs(fft(innovs_MHE_ALS_EKF(n,:)));
-    
-    %Normalise it
-    maxInnov = max([Finnov1(:);Finnov2(:);Finnov3(:)]);
-    Finnov1 = Finnov1./maxInnov;
-    Finnov2 = Finnov2./maxInnov;
-    Finnov3 = Finnov3./maxInnov;
-    
-    plot(Finnov1(1:floor(end/2)),'b');
-    plot(Finnov2(1:floor(end/2)),'r');
-    plot(Finnov3(1:floor(end/2)),'g');   
-    
-    vline(20,'k--'); %This is the N value used in ALS
-    ylabel('Innovation Magnitude (Normalized)');
-    xlabel('Timesteps (100ms each)');
-    
-    legend('Initial EKF','EKF-ALS-EKF','MHE-ALS-EKF', 'ALS Window Length');
-end
+run plotCorrelations;
+
+% %This figure is no longer used
+% %Plot the frequency spectrum for the first two observations
+% for n = 1:10
+%     innovs_Orig = cell2mat(Y_Original_EKF);
+%     innovs_EKF_ALS_EKF = cell2mat(Y_EKF_ALS_EKF);
+%     innovs_MHE_ALS_EKF = cell2mat(Y_MHE_ALS_EKF);
+%     
+%     figure();
+%     hold on;
+%     Finnov1 = abs(fft(innovs_Orig(n,:)));
+%     Finnov2 = abs(fft(innovs_EKF_ALS_EKF(n,:)));
+%     Finnov3 = abs(fft(innovs_MHE_ALS_EKF(n,:)));
+%     
+%     %Normalise it
+%     maxInnov = max([Finnov1(:);Finnov2(:);Finnov3(:)]);
+%     Finnov1 = Finnov1./maxInnov;
+%     Finnov2 = Finnov2./maxInnov;
+%     Finnov3 = Finnov3./maxInnov;
+%     
+%     plot(Finnov1(1:floor(end/2)),'b');
+%     plot(Finnov2(1:floor(end/2)),'r');
+%     plot(Finnov3(1:floor(end/2)),'g');   
+%     
+% %     vline(20,'k--'); %This is the N value used in ALS
+%     ylabel('Innovation Magnitude (Normalized)');
+%     xlabel('Timesteps (100ms each)');
+%     
+%     legend('Initial EKF','EKF-ALS-EKF','MHE-ALS-EKF', 'ALS Window Length');
+% end
